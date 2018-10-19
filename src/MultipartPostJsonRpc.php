@@ -32,6 +32,48 @@ class MultipartPostJsonRpc {
     return $response;
   }
   
+  // вытаскиваем данные откуда хотим:
+  // возвращаем обьект при ошибке
+  // [ true, 'String error code']
+  public function getMultipartPostData($filed = 'data'){
+    
+    // Request method is post
+    if($_SERVER['REQUEST_METHOD'] !== 'POST'){
+      return [true, 'ERROR_REQUEST_METHOD_TYPE'];
+    }
+    // Post is empty
+    if($_POST == array() ) {
+      return [true, 'ERROR_POST_NULL'];
+    }
+    // $_POST['data']  not send
+    if( !isset($_POST[$filed]) ) {
+      return [true, 'ERROR_POST_DATA_NULL'];
+    }
+    // convert $_POST['data'] (json string) in array
+    $data = $this->Reform->item($_POST[$filed], ['type' => 'json']);
+    if ($data === NULL){
+      return [true, 'ERROR_POST_DATA_JSON_DECODE_ERROR'];
+    }
+    return [false, $data];
+  }
+  
+  public function runJsonRpcV2($error, $data){
+    $response = new \Oploshka\Rpc\Response();
+    if($error){
+      $response->error($data, false);
+      return $response;
+    }
+    
+    $id       = isset($data['id']) ? $data['id']            : false;
+    $version  = isset($data['jsonrpc']) ? $data['jsonrpc']  : '';
+    
+    $methodName = isset($data['method']) ? $data['method'] : '';
+    $methodData = isset($data['params']) ? $data['params'] : [];
+    
+    $RpcCore = new \Oploshka\Rpc\Core($this->MethodStorage, $this->Reform);
+    $response   = $RpcCore->run($methodName, $methodData);
+  }
+  
   public function run(){
     
     $response = new \Oploshka\Rpc\Response();
