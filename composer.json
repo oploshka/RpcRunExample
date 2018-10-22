@@ -11,7 +11,7 @@
   "require": {
     "php": ">=7.0",
     "oploshka/reform": "^0",
-    "oploshka/rpc-core": "^0.0"
+    "oploshka/rpc-core": "^0.1"
   },
   "require-dev": {
     "phpunit/phpunit": "^6"
