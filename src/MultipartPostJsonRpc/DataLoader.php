@@ -13,7 +13,7 @@ class DataLoader implements \Oploshka\Rpc\iDataLoader {
     $this->Reform = new \Oploshka\Reform\Reform([]);
   }
   
-  public function load(&$methodName, &$methodData){
+  public function load(&$loadData){
   
     // Request method is post
     if($_SERVER['REQUEST_METHOD'] !== 'POST'){
@@ -32,18 +32,8 @@ class DataLoader implements \Oploshka\Rpc\iDataLoader {
     if ($data === NULL){
       return 'ERROR_POST_DATA_JSON_DECODE_ERROR';
     }
-  
-    // todo: id, jsonrpc
-    if( !isset($data['method']) ) {
-      return 'ERROR_NO_METHOD_NAME';
-    }
-    if( !isset($data['params']) ) {
-      return 'ERROR_NO_METHOD_PARAMS';
-    }
-
-    $methodName = $data['method'];
-    $methodData = $data['params'];
     
+    $loadData = $data;
     return 'ERROR_NOT';
   }
   
