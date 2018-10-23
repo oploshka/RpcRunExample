@@ -3,7 +3,7 @@
 namespace RpcExample;
 
 
-class MultipartPostJsonRpc {
+class TempMultipartPostJsonRpc {
   
   private $MethodStorage;
   private $Reform;
