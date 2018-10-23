@@ -2,7 +2,7 @@
 
 namespace RpcMethods;
 
-class Test1 implements \Oploshka\Rpc\Method {
+class Test1 implements \Oploshka\Rpc\iMethod {
   
   public function description(){
     return <<<DESCRIPTION
@@ -15,10 +15,14 @@ DESCRIPTION;
   }
   
   public function run(&$_RESPONSE, $_DATA = array() ){
-    $_RESPONSE->infoAdd('test1::string', 'test string');
-    $_RESPONSE->infoAdd('test1::int', 1);
-    $_RESPONSE->logAdd('test1::testLog');
-    $_RESPONSE->error('ERROR_NOT');
+    $_RESPONSE->setData('test1::string', 'test string');
+    $_RESPONSE->setData('test1::int', 1);
+    $_RESPONSE->setLog('test1', 'testLog');
+    $_RESPONSE->setError('ERROR_NOT');
+  }
+  
+  public function return(){
+    return [];
   }
   
 }

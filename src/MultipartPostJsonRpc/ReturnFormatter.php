@@ -12,17 +12,17 @@ class ReturnFormatter implements \Oploshka\Rpc\iReturnFormatter{
   
   public function prepare($loadData, &$methodName, &$methodData) {
   
-    if( !isset($methodData['method']) ) {
+    if( !isset($loadData['method']) ) {
       return 'ERROR_NO_METHOD_NAME';
     }
-    if( !isset($methodData['params']) ) {
+    if( !isset($loadData['params']) ) {
       return 'ERROR_NO_METHOD_PARAMS';
     }
   
     // // todo: id, jsonrpc
     
-    $methodName = $methodData['method'];
-    $methodData = $methodData['params'];
+    $methodName = $loadData['method'];
+    $methodData = $loadData['params'];
     
     return 'ERROR_NOT';
     
