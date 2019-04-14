@@ -16,7 +16,9 @@ composer.json file:
     "league/route": "^3.1",
     "zendframework/zend-diactoros": "^1.8",
     "oploshka/reform": "^0",
-    "oploshka/rpc-core": "^0"
+    "oploshka/rpc-core": "^0.2",
+    "oploshka/rpcDataLoaderPostMultipartFieldJson": "^0.2",
+    "oploshka/rpcReturnFormatterJson2": "^0.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^6"
@@ -62,16 +64,18 @@ $route
   ->map(['POST', 'GET'], '/', function (ServerRequestInterface $request, ResponseInterface $response) {
     // Init Rpc params
     $MethodStorage  = new \Oploshka\Rpc\MethodStorage();
-    $Reform         = new \Oploshka\Reform\Reform();
-    // init Rpc methods
-    $MethodStorage->add('methodTest1', 'RpcMethods\\Test1');
-    $MethodStorage->add('methodTest2', 'RpcMethods\\Test2');
-    // Init Rpc Server
-    $MultipartPostJsonRpc = new \RpcExample\MultipartPostJsonRpc($MethodStorage, $Reform);
-    // Run Rpc
-    $rpcResponse  = $MultipartPostJsonRpc->run();
-    // Convert
-    $returnJson   = $MultipartPostJsonRpc->responseToJson($rpcResponse);
+    $MethodStorage->add('methodTest1', 'RpcExampleMethods\\Test1');
+    $MethodStorage->add('methodTest2', 'RpcExampleMethods\\Test2');
+    
+    $Reform           = new \Oploshka\Reform\Reform();
+    $DataLoader       = new \Oploshka\RpcDataLoader\PostMultipartFieldJson\DataLoaderPostMultipartFieldJson();
+    $ReturnFormatter  = new \Oploshka\RpcReturnFormatter\Json2\ReturnFormatterJson2();
+    $ResponseClass = new \Oploshka\Rpc\Response();
+    
+    $Rpc = new \Oploshka\Rpc\Core($MethodStorage, $Reform, $DataLoader, $ReturnFormatter, $ResponseClass);
+    $Rpc->applyPhpSettings();
+    
+    $returnJson   = $Rpc->autoRun();
     
     $response->getBody()->write($returnJson);
     return $response;
