@@ -17,8 +17,8 @@ composer.json file:
     "zendframework/zend-diactoros": "^1.8",
     "oploshka/reform": "^0",
     "oploshka/rpc-core": "^0.2",
-    "oploshka/rpcDataLoaderPostMultipartFieldJson": "^0.2",
-    "oploshka/rpcReturnFormatterJson2": "^0.2"
+    "oploshka/rpc-data-loader-post-multipart-field-json": "^0.2",
+    "oploshka/rpc-return-formatter-json2": "^0.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^6"
