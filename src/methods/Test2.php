@@ -1,6 +1,6 @@
 <?php
 
-namespace RpcMethods;
+namespace RpcExampleMethods;
 
 class Test2 implements \Oploshka\Rpc\Method {
   

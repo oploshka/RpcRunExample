@@ -1,6 +1,6 @@
 <?php
 
-namespace RpcMethods;
+namespace RpcExampleMethods;
 
 class Test1 implements \Oploshka\Rpc\iMethod {
   

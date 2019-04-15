@@ -11,7 +11,9 @@
   "require": {
     "php": ">=7.0",
     "oploshka/reform": "^0",
-    "oploshka/rpc-core": "^0.1.1"
+    "oploshka/rpc-core": "^0.2",
+    "oploshka/rpcDataLoaderPostMultipartFieldJson": "^0.2",
+    "oploshka/rpcReturnFormatterJson2": "^0.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^6"
@@ -19,13 +21,12 @@
   "autoload": {
     "psr-4": {
       "RpcExample\\": "src",
-      "RpcMethods\\": "src/methods"
+      "RpcExampleMethods\\": "src/methods"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "RpcExampleTest\\": "test",
-      "RpcMethodsTest\\": "test/methods"
+      "RpcExampleTest\\": "test"
     }
   }
 }
