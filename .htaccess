@@ -1,8 +1,0 @@
-<IfModule mod_dir.c>
-  DirectoryIndex index.php
-</IfModule>
-
-Options -Indexes
-
-RewriteEngine On
-RewriteRule ^(.*)$ index.php [QSA,L]
